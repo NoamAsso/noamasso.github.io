@@ -4,13 +4,19 @@
     <title>Checkbox Example with Firebase Realtime Database</title>
 </head>
 <body>
-    <label>
-        <input type="checkbox" id="myCheckbox">
-        Check this box
-    </label>
+    <form id="myForm">
+        <label>
+            <input type="checkbox" id="myCheckbox">
+            Check this box
+        </label>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <p id="message"></p> <!-- This paragraph will display the message -->
 
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
-    <script src="backend.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
