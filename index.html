@@ -1,43 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Checkbox Example</title>
+    <title>Checkbox Example with Firebase Realtime Database</title>
 </head>
 <body>
-    <form id="myForm">
-        <label>
-            <input type="checkbox" id="myCheckbox">
-            Check this box
-        </label>
-        <br>
-        <input type="submit" value="Submit">
-    </form>
+    <label>
+        <input type="checkbox" id="myCheckbox">
+        Check this box
+    </label>
 
-    <p id="result"></p>
-
-    <script>
-        const checkbox = document.getElementById("myCheckbox");
-        const resultParagraph = document.getElementById("result");
-
-        // Check if checkbox state is stored in localStorage
-        if (localStorage.getItem("checkboxChecked") === "true") {
-            checkbox.checked = true;
-            resultParagraph.textContent = "Checkbox checked";
-        }
-
-        document.getElementById("myForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent form submission (to avoid page reload)
-
-            if (checkbox.checked) {
-                resultParagraph.textContent = "Checkbox checked";
-                // Store checkbox state in localStorage
-                localStorage.setItem("checkboxChecked", "true");
-            } else {
-                resultParagraph.textContent = "";
-                // Clear checkbox state from localStorage
-                localStorage.removeItem("checkboxChecked");
-            }
-        });
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
