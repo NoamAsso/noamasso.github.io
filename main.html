@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkbox Example</title>
+</head>
+<body>
+    <form id="myForm">
+        <label>
+            <input type="checkbox" id="myCheckbox">
+            Check this box
+        </label>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission (to avoid page reload)
+
+            const checkbox = document.getElementById("myCheckbox");
+            const resultParagraph = document.getElementById("result");
+
+            if (checkbox.checked) {
+                resultParagraph.textContent = "Checkbox checked";
+            } else {
+                resultParagraph.textContent = "";
+            }
+        });
+    </script>
+</body>
+</html>
