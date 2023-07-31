@@ -13,7 +13,9 @@ firebase.initializeApp(firebaseConfig);
 
 // Get a reference to the Realtime Database
 const database = firebase.database();
-// Get a reference to the checkbox element
+
+// Get references to the form and checkbox elements
+const myForm = document.getElementById("myForm");
 const checkbox = document.getElementById("myCheckbox");
 
 // Function to display the message
@@ -37,8 +39,10 @@ database.ref("checkboxState").on("value", function(snapshot) {
     }
 });
 
-// Add an event listener to the checkbox
-checkbox.addEventListener("change", function() {
+// Add an event listener to the form's submit event
+myForm.addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the form from submitting and page reloading
+
     // Get the checkbox state (true for checked, false for unchecked)
     const isChecked = checkbox.checked;
 
