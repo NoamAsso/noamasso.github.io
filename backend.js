@@ -13,14 +13,28 @@ firebase.initializeApp(firebaseConfig);
 
 // Get a reference to the Realtime Database
 const database = firebase.database();
-
 // Get a reference to the checkbox element
 const checkbox = document.getElementById("myCheckbox");
+
+// Function to display the message
+function showMessage() {
+    const messageParagraph = document.getElementById("message");
+    messageParagraph.textContent = "Hi, my name is Noam";
+}
 
 // Read the data from the Realtime Database and set the checkbox state on page load
 database.ref("checkboxState").on("value", function(snapshot) {
     const isChecked = snapshot.val();
     checkbox.checked = isChecked;
+
+    // If the checkbox is checked, display the message
+    if (isChecked) {
+        showMessage();
+    } else {
+        // Clear the message if the checkbox is unchecked
+        const messageParagraph = document.getElementById("message");
+        messageParagraph.textContent = "";
+    }
 });
 
 // Add an event listener to the checkbox
@@ -30,4 +44,13 @@ checkbox.addEventListener("change", function() {
 
     // Update the data in the Realtime Database
     database.ref("checkboxState").set(isChecked);
+
+    // If the checkbox is checked, display the message
+    if (isChecked) {
+        showMessage();
+    } else {
+        // Clear the message if the checkbox is unchecked
+        const messageParagraph = document.getElementById("message");
+        messageParagraph.textContent = "";
+    }
 });
