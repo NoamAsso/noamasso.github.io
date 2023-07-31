@@ -10,13 +10,78 @@
             Check this box
         </label>
         <br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" onclick="submitForm()">
     </form>
 
     <p id="message"></p> <!-- This paragraph will display the message -->
 
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
-    <script src="app.js"></script>
+    <script>
+        // Initialize Firebase (Replace this with your Firebase configuration)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBi-KsTTeTIGFutmbiTT2roD_Vq15pqiOQ",
+            authDomain: "storage-team-f1566.firebaseapp.com",
+            databaseURL: "https://storage-team-f1566-default-rtdb.firebaseio.com",
+            projectId: "storage-team-f1566",
+            storageBucket: "storage-team-f1566.appspot.com",
+            messagingSenderId: "116934578743",
+            appId: "1:116934578743:web:28f9796d06015d069325b2"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        // Get a reference to the Realtime Database
+        const database = firebase.database();
+
+        // Get a reference to the checkbox element
+        const checkbox = document.getElementById("myCheckbox");
+
+        // Function to display the message or "Failed to update"
+        function showMessage(message) {
+            const messageParagraph = document.getElementById("message");
+            messageParagraph.textContent = message;
+        }
+
+        // Function to update the checkbox state in the Realtime Database
+        function updateCheckboxState() {
+            const isChecked = checkbox.checked;
+            database.ref("checkboxState").set(isChecked)
+                .then(() => {
+                    if (isChecked) {
+                        showMessage("I'm Noam");
+                    } else {
+                        showMessage("");
+                    }
+                })
+                .catch((error) => {
+                    showMessage("Failed to update");
+                    console.error("Failed to update checkbox state:", error);
+                });
+        }
+
+        // Read the data from the Realtime Database and set the checkbox state on page load
+        database.ref("checkboxState").on("value", function(snapshot) {
+            const isChecked = snapshot.val();
+            checkbox.checked = isChecked;
+
+            // If the checkbox is checked, display the message
+            if (isChecked) {
+                showMessage("I'm Noam");
+            } else {
+                // Clear the message if the checkbox is unchecked
+                showMessage("");
+            }
+        });
+
+        // Function to handle the form submission
+        function submitForm() {
+            // Prevent the form from submitting and page reloading
+            event.preventDefault();
+
+            // Call the updateCheckboxState() function to update the state in the Realtime Database
+            updateCheckboxState();
+        }
+    </script>
 </body>
 </html>
