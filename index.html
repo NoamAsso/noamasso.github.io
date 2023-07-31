@@ -16,16 +16,26 @@
     <p id="result"></p>
 
     <script>
+        const checkbox = document.getElementById("myCheckbox");
+        const resultParagraph = document.getElementById("result");
+
+        // Check if checkbox state is stored in localStorage
+        if (localStorage.getItem("checkboxChecked") === "true") {
+            checkbox.checked = true;
+            resultParagraph.textContent = "Checkbox checked";
+        }
+
         document.getElementById("myForm").addEventListener("submit", function(event) {
             event.preventDefault(); // Prevent form submission (to avoid page reload)
 
-            const checkbox = document.getElementById("myCheckbox");
-            const resultParagraph = document.getElementById("result");
-
             if (checkbox.checked) {
                 resultParagraph.textContent = "Checkbox checked";
+                // Store checkbox state in localStorage
+                localStorage.setItem("checkboxChecked", "true");
             } else {
                 resultParagraph.textContent = "";
+                // Clear checkbox state from localStorage
+                localStorage.removeItem("checkboxChecked");
             }
         });
     </script>
